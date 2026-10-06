@@ -20,6 +20,16 @@
       try { seen = sessionStorage.getItem('gd-intro') === '1'; sessionStorage.setItem('gd-intro', '1'); } catch (e) {}
       if (reduce || seen) d.classList.add('no-loader');
       if (reduce) d.classList.add('static-hero');
+      // Language: saved choice, otherwise the browser's language
+      var lang = null;
+      try { lang = localStorage.getItem('gd-lang'); } catch (e) {}
+      if (lang !== 'es' && lang !== 'en') lang = /^es\b/i.test(navigator.language || '') ? 'es' : 'en';
+      d.setAttribute('data-lang', lang);
+      if (lang === 'es') {
+        d.lang = 'es';
+        d.classList.add('i18n-pending');
+        setTimeout(function () { d.classList.remove('i18n-pending'); }, 3000);
+      }
     })();
   </script>
 </head>
@@ -40,7 +50,7 @@
 
   <header class="nav" id="nav">
     <div class="wrap nav-bar">
-      <a class="brand" href="#top" aria-label="GD Company, back to top"><span class="mark"></span>AGD Company</a>
+      <a class="brand" href="#top" aria-label="AGD Company, back to top"><span class="mark"></span>AGD Company</a>
       <nav class="nav-links" aria-label="Main">
         <a href="#services">Services</a>
         <a href="#web">Websites</a>
@@ -48,8 +58,11 @@
         <a href="#work">Work</a>
         <a href="#studio">Studio</a>
       </nav>
-      <a class="btn nav-cta" href="#contact"><span>Start a project</span></a>
-      <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="menu-label">Menu</span><span class="bars"><i></i><i></i></span></button>
+      <div class="nav-end">
+        <button class="lang" type="button" aria-label="Ver en español"><span class="lang-opt" data-l="en">EN</span><span class="lang-opt" data-l="es">ES</span></button>
+        <a class="btn nav-cta" href="#contact"><span>Start a project</span></a>
+        <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="menu-label">Menu</span><span class="bars"><i></i><i></i></span></button>
+      </div>
     </div>
   </header>
 
@@ -63,7 +76,7 @@
       <li><a class="big" href="#contact">Start a project</a></li>
     </ul>
     <div class="menu-foot">
-      <a href="mailto:hello@gdcompany.com">hello@agdcompany.com</a>
+      <a href="mailto:hello@gdcompany.com">hello@gdcompany.com</a>
       <span>Instagram, LinkedIn, Behance</span>
     </div>
   </div>
@@ -420,7 +433,7 @@
     <section class="section about" id="studio">
       <div class="wrap">
         <div class="about-top">
-          <p class="about-statement" id="about-statement">GD is a multidisciplinary digital studio. We combine creativity, technology, branding and strategy to turn ideas into brands people notice, and businesses that grow online.</p>
+          <p class="about-statement" id="about-statement">AGD is a multidisciplinary digital studio. We combine creativity, technology, branding and strategy to turn ideas into brands people notice, and businesses that grow online.</p>
           <span class="mark about-mark" aria-hidden="true"></span>
         </div>
 
@@ -504,8 +517,8 @@
         </div>
 
         <footer class="footer">
-          <a class="brand" href="#top"><span class="mark"></span>GD Company</a>
-          <span>© 2026 GD Company. Digital studio.</span>
+          <a class="brand" href="#top"><span class="mark"></span>AGD Company</a>
+          <span>© 2026 AGD Company. Digital studio.</span>
           <div class="footer-links"><a href="#">Privacy</a><a href="#">Legal notice</a><a href="#top">Back to top</a></div>
         </footer>
       </div>
@@ -515,6 +528,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="i18n.js"></script>
   <script src="main.js"></script>
 </body>
 </html>

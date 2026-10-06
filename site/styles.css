@@ -1,5 +1,5 @@
 /* ==========================================================================
-   GD Company — design tokens
+   AGD Company — design tokens
    Palette is drawn from the GD shield: deep navy line, lagoon teal, cursor orange.
    ========================================================================== */
 :root {
@@ -898,3 +898,37 @@ legend { font-size: var(--t-small); color: var(--muted); margin-bottom: 14px; pa
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   .work:hover .work-preview .ms { transform: none; }
 }
+
+/* ==========================================================================
+   Language switch
+   ========================================================================== */
+.nav-end { display: flex; align-items: center; gap: 14px; }
+.lang {
+  position: relative; isolation: isolate;
+  display: inline-grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%; align-items: stretch;
+  height: 38px; padding: 3px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px currentColor;
+  font-size: .76rem; font-weight: 600; font-stretch: 112%; letter-spacing: .06em;
+}
+.lang::before {
+  content: ""; position: absolute; z-index: -1;
+  top: 3px; bottom: 3px; left: 3px; width: calc(50% - 3px);
+  border-radius: 999px;
+  background: var(--nav-btn-bg);
+  transition: transform .7s var(--ease), background .4s;
+}
+:root[data-lang="es"] .lang::before { transform: translateX(100%); }
+.lang-opt { display: grid; place-items: center; line-height: 1; min-width: 36px; padding: 0 6px; opacity: .7; transition: color .5s var(--ease), opacity .5s var(--ease); }
+:root:not([data-lang="es"]) .lang-opt[data-l="en"],
+:root[data-lang="es"] .lang-opt[data-l="es"] { color: var(--nav-btn-fg); opacity: 1; }
+.lang:hover .lang-opt { opacity: 1; }
+
+/* Copy fades out and back in while the language changes */
+/* (targets are elements GSAP never animates, so the two don't fight over opacity) */
+main, .nav-links a, .nav-cta > span, .menu ul, .menu-label { transition: opacity .32s var(--ease-io); }
+.is-switching main, .is-switching .nav-links a, .is-switching .nav-cta > span, .is-switching .menu ul, .is-switching .menu-label { opacity: 0; }
+
+/* Avoid a flash of English before Spanish is applied */
+.i18n-pending main, .i18n-pending .nav-links, .i18n-pending .nav-cta, .i18n-pending .menu-label { visibility: hidden; }

@@ -1,4 +1,4 @@
-/* GD Company — site behaviour */
+/* AGD Company — site behaviour */
 (function () {
   'use strict';
 
@@ -11,6 +11,69 @@
 
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  /* ------------------------------------------------------------------
+     Language: English lives in the markup, Spanish comes from i18n.js
+     ------------------------------------------------------------------ */
+  var ES = window.GD_ES || {};
+  var lang = root.getAttribute('data-lang') === 'es' ? 'es' : 'en';
+  var I18N_ATTRS = ['aria-label', 'placeholder', 'data-cursor'];
+  var EN_TITLE = document.title, metaDesc = $('meta[name="description"]'), EN_DESC = metaDesc ? metaDesc.content : '';
+  var refreshServices = null;
+  function t(s) { return lang === 'es' && ES[s] ? ES[s] : s; }
+
+  // Swap every translatable text node and attribute under `scope`, keeping the English original on the node
+  function translate(scope) {
+    scope = scope || document.body;
+    var walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = walker.nextNode())) {
+      if (n.__en === undefined) {
+        var key = n.nodeValue.replace(/\s+/g, ' ').trim();
+        if (!key || !ES[key]) continue;
+        n.__en = n.nodeValue; n.__key = key;
+      }
+      n.nodeValue = lang === 'es' ? n.__en.replace(/\S[\s\S]*\S|\S/, function () { return ES[n.__key]; }) : n.__en;
+    }
+    $$('[' + I18N_ATTRS.join('],[') + ']', scope).forEach(function (el) {
+      var store = el.__enAttrs || (el.__enAttrs = {});
+      I18N_ATTRS.forEach(function (a) {
+        if (!el.hasAttribute(a)) return;
+        if (!(a in store)) { if (!ES[el.getAttribute(a)]) return; store[a] = el.getAttribute(a); }
+        el.setAttribute(a, lang === 'es' ? ES[store[a]] : store[a]);
+      });
+    });
+  }
+
+  function applyLang() {
+    root.lang = lang;
+    root.setAttribute('data-lang', lang);
+    translate();
+    document.title = t(EN_TITLE);
+    if (metaDesc) metaDesc.content = t(EN_DESC);
+    $('.lang').setAttribute('aria-label', lang === 'es' ? 'View in English' : 'Ver en español');
+    $('.menu-label').textContent = t(document.body.classList.contains('menu-open') ? 'Close' : 'Menu');
+    if (refreshServices) refreshServices();
+    aboutStatement();
+  }
+
+  function setLang(next) {
+    if (next === lang) return;
+    lang = next;
+    root.setAttribute('data-lang', lang);
+    try { localStorage.setItem('gd-lang', lang); } catch (e) {}
+    function swap() {
+      applyLang();
+      if (hasGsap) ScrollTrigger.refresh();
+    }
+    if (reduceMotion) { swap(); return; }
+    // Fade the copy out, swap it while invisible, fade it back in
+    document.body.classList.add('is-switching');
+    setTimeout(function () {
+      swap();
+      requestAnimationFrame(function () { document.body.classList.remove('is-switching'); });
+    }, 320);
+  }
+  $('.lang').addEventListener('click', function () { setLang(lang === 'es' ? 'en' : 'es'); });
 
   /* ------------------------------------------------------------------
      Content: sample sites used across the page
@@ -241,6 +304,7 @@
     }
     function load(key) {
       view.innerHTML = miniSite(key);
+      translate(view);
       urlEl.textContent = DEMOS[key].url;
       view.scrollTop = 0;
     }
@@ -287,25 +351,28 @@
   /* ------------------------------------------------------------------
      Services filter
      ------------------------------------------------------------------ */
-  (function services() {
+  refreshServices = (function services() {
     var chips = $$('[data-filter]'), cards = $$('.service'), count = $('.filters-count');
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        var f = chip.dataset.filter, n = 0;
-        chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
-        cards.forEach(function (card) {
-          var match = f === 'all' || card.dataset.for.split(' ').indexOf(f) > -1;
-          if (match) n++;
-          card.classList.toggle('is-dim', !match);
-          card.classList.toggle('is-match', match && f !== 'all');
-        });
-        $$('.discipline').forEach(function (g) {
-          var m = $$('.service:not(.is-dim)', g).length;
-          $('h3 span', g).textContent = f === 'all' ? '3 services' : m + ' of 3';
-        });
-        count.textContent = f === 'all' ? '12 services' : n + ' services for ' + chip.textContent.toLowerCase();
+    var active = chips[0];
+    function update() {
+      var chip = active, f = chip.dataset.filter, n = 0;
+      chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+      cards.forEach(function (card) {
+        var match = f === 'all' || card.dataset.for.split(' ').indexOf(f) > -1;
+        if (match) n++;
+        card.classList.toggle('is-dim', !match);
+        card.classList.toggle('is-match', match && f !== 'all');
       });
+      $$('.discipline').forEach(function (g) {
+        var m = $$('.service:not(.is-dim)', g).length;
+        $('h3 span', g).textContent = f === 'all' ? t('3 services') : m + t(' of 3');
+      });
+      count.textContent = f === 'all' ? t('12 services') : n + t(' services for ') + chip.textContent.toLowerCase();
+    }
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () { active = chip; update(); });
     });
+    return update;
   })();
 
   /* ------------------------------------------------------------------
@@ -357,7 +424,7 @@
     list.innerHTML = PROPS.map(function (p) {
       return '<button class="prop" data-id="' + p.id + '" data-op="' + p.op + '">' +
         '<div class="prop-img">' + propArt(p.art) + '</div>' +
-        '<div class="prop-info"><div><p class="prop-type">' + p.type + ' in ' + p.area + '</p><h3>' + p.name + '</h3></div>' +
+        '<div class="prop-info"><div><p class="prop-type"><span>' + p.type + '</span><span> in </span>' + p.area + '</p><h3>' + p.name + '</h3></div>' +
         '<p class="prop-price">' + p.price + '</p>' +
         '<dl><div><dt>Beds</dt><dd>' + p.beds + '</dd></div><div><dt>Baths</dt><dd>' + p.baths + '</dd></div><div><dt>Area</dt><dd>' + p.m2 + ' m²</dd></div></dl>' +
         '</div></button>';
@@ -443,16 +510,16 @@
       e.preventDefault();
       var name = f.name.value.trim(), email = f.email.value.trim(), msg = f.message.value.trim();
       var ok = [
-        err(f.name, name ? '' : 'Add your name so we know who to reply to.'),
-        err(f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : 'Enter an email address like you@company.com.'),
-        err(f.message, msg ? '' : 'Tell us a little about the project.')
+        err(f.name, name ? '' : t('Add your name so we know who to reply to.')),
+        err(f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? '' : t('Enter an email address like you@company.com.')),
+        err(f.message, msg ? '' : t('Tell us a little about the project.'))
       ].every(Boolean);
       if (!ok) { $('[aria-invalid="true"]', f).focus(); return; }
       var type = (f.querySelector('input[name="type"]:checked') || {}).value || 'Project';
       var body = 'Name: ' + name + '\nEmail: ' + email + '\nCompany: ' + (f.company.value.trim() || '-') + '\nProject type: ' + type + '\n\n' + msg;
-      window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent('New project: ' + type) + '&body=' + encodeURIComponent(body);
+      window.location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(t('New project: ') + type) + '&body=' + encodeURIComponent(body);
       status.classList.add('is-ok');
-      status.textContent = 'Thanks, ' + name.split(' ')[0] + '. Your email app should open with the brief ready to send. If it doesn\'t, write to ' + EMAIL + '.';
+      status.textContent = t('Thanks, ') + name.split(' ')[0] + t('. Your email app should open with the brief ready to send. If it doesn\'t, write to ') + EMAIL + '.';
     });
     // Links that point at the form can preselect a project type
     $$('a[data-type]').forEach(function (a) {
@@ -468,7 +535,7 @@
      ------------------------------------------------------------------ */
   var lenis = null;
   if (window.Lenis && !reduceMotion) {
-    lenis = new Lenis({ lerp: 0.095, smoothWheel: true });
+    lenis = new Lenis({ lerp: 0.075, wheelMultiplier: 0.95, smoothWheel: true });
     if (hasGsap) {
       lenis.on('scroll', ScrollTrigger.update);
       gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
@@ -493,7 +560,7 @@
   function setMenu(open) {
     document.body.classList.toggle('menu-open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
-    $('.menu-label', menuBtn).textContent = open ? 'Close' : 'Menu';
+    $('.menu-label', menuBtn).textContent = t(open ? 'Close' : 'Menu');
     menu.setAttribute('aria-hidden', String(!open));
     if (lenis) open ? lenis.stop() : lenis.start();
   }
@@ -608,20 +675,96 @@
       .to({}, { duration: .4 });
   }
 
+  // Re-runnable so the word-by-word reveal is rebuilt when the language changes
+  var aboutTween = null, ABOUT_EN = null;
   function aboutStatement() {
     var el = $('#about-statement');
-    if (!el || !hasGsap || reduceMotion) return;
-    el.innerHTML = el.textContent.split(' ').map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
-    el.setAttribute('aria-label', el.textContent);
-    gsap.fromTo($$('.w', el), { opacity: .14 }, {
+    if (!el) return;
+    if (ABOUT_EN === null) ABOUT_EN = (el.firstChild && el.firstChild.__en) || el.textContent; // translate() may already have swapped it
+    var text = t(ABOUT_EN);
+    if (aboutTween) { aboutTween.scrollTrigger.kill(); aboutTween.kill(); aboutTween = null; }
+    if (!hasGsap || reduceMotion) { el.textContent = text; return; }
+    el.innerHTML = text.split(' ').map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
+    el.setAttribute('aria-label', text);
+    aboutTween = gsap.fromTo($$('.w', el), { opacity: .14 }, {
       opacity: 1, stagger: .1, ease: 'none',
       scrollTrigger: { trigger: el, start: 'top 82%', end: 'bottom 48%', scrub: true }
     });
   }
 
+  /* ------------------------------------------------------------------
+     Motion: content eases in as it scrolls into view
+     ------------------------------------------------------------------ */
+  function reveals() {
+    if (!hasGsap || reduceMotion) return;
+    var ease = 'expo.out';
+
+    // Section headings, then their intro paragraph
+    $$('.section .head').forEach(function (head) {
+      gsap.from(head.children, {
+        y: 70, opacity: 0, duration: 1.4, stagger: .12, ease: ease, clearProps: 'transform,opacity',
+        scrollTrigger: { trigger: head, start: 'top 86%', once: true }
+      });
+    });
+
+    // Lists of cards and rows arrive in a soft cascade
+    var items = $$([
+      '.filters', '.discipline h3', '.service', '.pick', '.bench-tools', '.web-facts > div',
+      '.way', '.vis-cta', '.audiences > div', '.outcome', '.re-who > div',
+      '.re-services .h3', '.re-services li', '.about-mark', '.pillars > div', '.process h3', '.step',
+      '.form .field', '.form fieldset', '.form-end', '.direct > div', '.work-meta', '.footer'
+    ].join(','));
+    gsap.set(items, { y: 44, opacity: 0 });
+    ScrollTrigger.batch(items, {
+      start: 'top 92%', once: true,
+      onEnter: function (batch) {
+        gsap.to(batch, { y: 0, opacity: 1, duration: 1.2, stagger: .075, ease: ease, overwrite: true, clearProps: 'transform,opacity' });
+      }
+    });
+
+    // Large interactive pieces rise and settle
+    $$('.stage, .compare, .listing, .orbit').forEach(function (el) {
+      gsap.from(el, {
+        y: 90, opacity: 0, scale: .965, duration: 1.6, ease: ease, clearProps: 'transform,opacity',
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+      });
+    });
+
+    // Project previews open like a window as they scroll in
+    $$('.work-preview').forEach(function (el) {
+      gsap.fromTo(el, { clipPath: 'inset(12% 7% 0% 7% round 28px)' }, {
+        clipPath: 'inset(0% 0% 0% 0% round 12px)', ease: 'none',
+        scrollTrigger: { trigger: el, start: 'top 96%', end: 'top 40%', scrub: .7 }
+      });
+    });
+
+    // The closing headline slides in line by line
+    gsap.from('.contact-title span', {
+      yPercent: 60, opacity: 0, duration: 1.5, stagger: .14, ease: ease, clearProps: 'transform,opacity',
+      scrollTrigger: { trigger: '.contact-title', start: 'top 85%', once: true }
+    });
+  }
+
+  // Buttons lean gently towards the pointer
+  function magnetic() {
+    if (!hasGsap || reduceMotion || !finePointer) return;
+    $$('.btn, .lang').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * .22, y: (e.clientY - r.top - r.height / 2) * .3, duration: .6, ease: 'power3.out' });
+      });
+      b.addEventListener('pointerleave', function () {
+        gsap.to(b, { x: 0, y: 0, duration: 1, ease: 'elastic.out(1, .45)' });
+      });
+    });
+  }
+
+  applyLang();
   heroScroll();
-  aboutStatement();
+  reveals();
+  magnetic();
   onScroll();
+  root.classList.remove('i18n-pending');
 
   // Loader: wait for fonts (max ~2s), lift the curtain, then play the opening
   var loader = $('.loader');
