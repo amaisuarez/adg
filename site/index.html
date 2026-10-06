@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GD Company Studio</title>
+  <meta name="description" content="GD Company is a digital studio. We design websites, build brands and help businesses, entrepreneurs and real estate professionals become visible and grow online.">
+  <meta name="theme-color" content="#F2F4F3">
+  <link rel="icon" href="assets/mark.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Decide early: loader once per session, static hero when motion is reduced.
+    (function () {
+      var d = document.documentElement;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var seen = false;
+      try { seen = sessionStorage.getItem('gd-intro') === '1'; sessionStorage.setItem('gd-intro', '1'); } catch (e) {}
+      if (reduce || seen) d.classList.add('no-loader');
+      if (reduce) d.classList.add('static-hero');
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="mark"></span>
+      <span class="loader-word">GD Company</span>
+    </div>
+  </div>
+
+  <div class="cursor" aria-hidden="true">
+    <svg class="cursor-arrow" viewBox="0 0 22 26"><path d="M2 2 L2 21 L7.2 16.4 L10.6 24 L14 22.5 L10.7 15 L18 15 Z" fill="#FF9432" stroke="#061B2E" stroke-width="1.6" stroke-linejoin="round"/></svg>
+    <span class="cursor-label"></span>
+  </div>
+
+  <header class="nav" id="nav">
+    <div class="wrap nav-bar">
+      <a class="brand" href="#top" aria-label="GD Company, back to top"><span class="mark"></span>GD Company</a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#web">Websites</a>
+        <a href="#real-estate">Real estate</a>
+        <a href="#work">Work</a>
+        <a href="#studio">Studio</a>
+      </nav>
+      <a class="btn nav-cta" href="#contact"><span>Start a project</span></a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu"><span class="menu-label">Menu</span><span class="bars"><i></i><i></i></span></button>
+    </div>
+  </header>
+
+  <div class="menu" id="menu" aria-hidden="true">
+    <ul>
+      <li><a class="big" href="#services">Services</a></li>
+      <li><a class="big" href="#web">Websites</a></li>
+      <li><a class="big" href="#real-estate">Real estate</a></li>
+      <li><a class="big" href="#work">Work</a></li>
+      <li><a class="big" href="#studio">Studio</a></li>
+      <li><a class="big" href="#contact">Start a project</a></li>
+    </ul>
+    <div class="menu-foot">
+      <a href="mailto:hello@gdcompany.com">hello@gdcompany.com</a>
+      <span>Instagram, LinkedIn, Behance</span>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero" id="top" aria-label="Introduction">
+      <div class="hero-pin">
+        <div class="hero-film" aria-hidden="true">
+          <video muted loop playsinline autoplay preload="auto" poster="assets/poster.jpg">
+            <source src="assets/film.mp4" type="video/mp4">
+          </video>
+        </div>
+
+        <div class="wrap hero-layout">
+          <h1 class="hero-title display">
+            <span class="line"><span>We build</span></span>
+            <span class="line"><span>digital</span></span>
+            <span class="line"><span>presence.</span></span>
+          </h1>
+          <div class="hero-window" aria-hidden="true"></div>
+          <div class="hero-foot">
+            <p class="lead">We design websites, shape brands and put businesses in front of new opportunities. One digital partner, from first idea to lasting presence.</p>
+            <p class="small hero-for">For brands, businesses, entrepreneurs and real estate professionals.</p>
+            <span class="scroll-cue"><i></i>Scroll to open the film</span>
+          </div>
+        </div>
+
+        <div class="hero-statement" aria-hidden="true">
+          <div class="wrap">
+            <p class="h2">
+              <span class="line"><span>Your ideas.</span></span>
+              <span class="line"><span>Our digital vision.</span></span>
+            </p>
+            <div class="hero-statement-meta">
+              <span>Websites, branding, visibility, digitalization, real estate.</span>
+              <span>Keep scrolling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SERVICES ============================== -->
+    <section class="section services" id="services">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">One partner for the whole digital picture.</h2>
+          <p class="lead">Most businesses juggle a web designer, a marketer and someone who "knows about Google". We bring it together, so your website, brand and visibility pull in the same direction.</p>
+        </div>
+
+        <div class="filters" role="group" aria-label="Show services for">
+          <span class="small filters-label">Show what we do for</span>
+          <button class="chip" aria-pressed="true" data-filter="all">Everyone</button>
+          <button class="chip" aria-pressed="false" data-filter="brands">Brands</button>
+          <button class="chip" aria-pressed="false" data-filter="businesses">Businesses</button>
+          <button class="chip" aria-pressed="false" data-filter="entrepreneurs">Entrepreneurs</button>
+          <button class="chip" aria-pressed="false" data-filter="realestate">Real estate</button>
+          <span class="small filters-count" aria-live="polite">12 services</span>
+        </div>
+
+        <div class="disciplines">
+          <div class="discipline">
+            <h3>Build <span>3 services</span></h3>
+            <article class="service" data-for="brands businesses entrepreneurs realestate">
+              <h4>Custom websites</h4>
+              <p>Designed and coded around your business, not a template. Fast, responsive and easy to update.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><rect pathLength="1" x="5" y="9" width="34" height="26" rx="2"/><path pathLength="1" d="M5 15h34"/><path pathLength="1" class="hl" d="M11 22h12M11 27h8"/><path pathLength="1" d="M29 21h4v8h-4z"/></svg>
+            </article>
+            <article class="service" data-for="brands businesses entrepreneurs">
+              <h4>Landing pages and platforms</h4>
+              <p>Focused pages for launches and campaigns, and larger platforms when you need accounts, bookings or catalogues.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M22 7 38 15 22 23 6 15z"/><path pathLength="1" d="M6 22l16 8 16-8"/><path pathLength="1" class="hl" d="M6 29l16 8 16-8"/></svg>
+            </article>
+            <article class="service" data-for="businesses realestate">
+              <h4>Custom digital solutions</h4>
+              <p>Tools shaped to how you work: quote calculators, client areas, internal dashboards.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="10" cy="12" r="4"/><circle pathLength="1" cx="34" cy="12" r="4"/><circle pathLength="1" class="hl" cx="22" cy="33" r="5"/><path pathLength="1" d="M14 12h16M12 15l7 14M32 15l-7 14"/></svg>
+            </article>
+          </div>
+
+          <div class="discipline">
+            <h3>Brand <span>3 services</span></h3>
+            <article class="service" data-for="brands businesses entrepreneurs">
+              <h4>Branding and visual identity</h4>
+              <p>Logos, type, colour and the rules that keep them consistent everywhere you show up.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M22 5c6 3 10 4 15 4v12c0 9-7 15-15 18C14 36 7 30 7 21V9c5 0 9-1 15-4z"/><path pathLength="1" class="hl" d="M16 22l4 4 8-9"/></svg>
+            </article>
+            <article class="service" data-for="brands businesses entrepreneurs realestate">
+              <h4>Visibility and positioning</h4>
+              <p>Search, profiles and listings set up so the people looking for you actually find you.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="19" cy="19" r="11"/><path pathLength="1" d="M27 27l11 11"/><path pathLength="1" class="hl" d="M14 19h10M19 14v10"/></svg>
+            </article>
+            <article class="service" data-for="brands businesses realestate">
+              <h4>Marketing and communication</h4>
+              <p>Campaigns, social content and newsletters that say one clear thing well.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M7 9h30v20H21l-8 7v-7H7z"/><path pathLength="1" class="hl" d="M13 16h18M13 22h11"/></svg>
+            </article>
+          </div>
+
+          <div class="discipline">
+            <h3>Grow <span>3 services</span></h3>
+            <article class="service" data-for="brands entrepreneurs">
+              <h4>Promotion through our network</h4>
+              <p>Feature your brand on our platform and in front of the partners and audiences we already work with.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" class="hl" cx="22" cy="22" r="5"/><circle pathLength="1" cx="8" cy="10" r="3"/><circle pathLength="1" cx="36" cy="10" r="3"/><path pathLength="1" d="M10 12l8 7M34 12l-8 7M22 27v8M8 36h28"/></svg>
+            </article>
+            <article class="service" data-for="businesses entrepreneurs">
+              <h4>Business digitalization</h4>
+              <p>Move bookings, payments, forms and paperwork online so your team spends its time on clients.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M6 8h14v20H6z"/><path pathLength="1" d="M24 16h14v20H24z"/><path pathLength="1" class="hl" d="M14 33c0 3 3 5 7 5M17 35l4 3-4 3"/></svg>
+            </article>
+            <article class="service" data-for="businesses entrepreneurs realestate">
+              <h4>Ongoing support</h4>
+              <p>A team you can call after launch: updates, improvements and honest advice on what to do next.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="16" cy="22" r="10"/><circle pathLength="1" class="hl" cx="28" cy="22" r="10"/></svg>
+            </article>
+          </div>
+
+          <div class="discipline">
+            <h3>Property <span>3 services</span></h3>
+            <article class="service" data-for="realestate">
+              <h4>Real estate digital support</h4>
+              <p>Websites, listings and campaigns for agents, agencies, property owners and developers.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><circle pathLength="1" cx="14" cy="22" r="7"/><path pathLength="1" d="M21 22h18M33 22v6M38 22v4"/><circle pathLength="1" class="hl" cx="14" cy="22" r="2"/></svg>
+            </article>
+            <article class="service" data-for="realestate">
+              <h4>Property presentation</h4>
+              <p>Photo direction, floor plans and dedicated pages that make a property easy to say yes to.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><path pathLength="1" d="M5 12V6h6M33 6h6v6M39 32v6h-6M11 38H5v-6"/><path pathLength="1" class="hl" d="M13 30V20l9-7 9 7v10z"/><path pathLength="1" d="M19 30v-6h6v6"/></svg>
+            </article>
+            <article class="service" data-for="realestate">
+              <h4>Real estate websites and portfolios</h4>
+              <p>Searchable listings with maps and filters, or a refined portfolio for a single development.</p>
+              <svg viewBox="0 0 44 44" aria-hidden="true"><rect pathLength="1" x="5" y="8" width="34" height="28" rx="2"/><path pathLength="1" d="M5 14h34"/><path pathLength="1" class="hl" d="M22 19c-3.5 0-6 2.6-6 5.8 0 4.2 6 8.2 6 8.2s6-4 6-8.2c0-3.2-2.5-5.8-6-5.8z"/><circle pathLength="1" cx="22" cy="25" r="1.8"/></svg>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== WEB DESIGN ============================== -->
+    <section class="section web is-dark" id="web" data-dark>
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">Websites built to be used, not just looked at.</h2>
+          <p class="lead">Every site is designed from scratch, built with modern code and tested on every screen. Pick a project, then drag the edge of the window to watch the layout adapt.</p>
+        </div>
+
+        <div class="studio-bench">
+          <div class="projects-pick" role="group" aria-label="Choose a sample website">
+            <button class="pick" aria-pressed="true" data-demo="norte"><b>Atelier Norte</b><span>Architecture</span></button>
+            <button class="pick" aria-pressed="false" data-demo="mare"><b>Maré</b><span>Restaurant</span></button>
+            <button class="pick" aria-pressed="false" data-demo="solenne"><b>Solenne</b><span>Skincare</span></button>
+            <button class="pick" aria-pressed="false" data-demo="costa"><b>Costa Habitat</b><span>Real estate</span></button>
+          </div>
+
+          <div>
+            <div class="bench-tools" role="group" aria-label="Preview size">
+              <button class="chip" aria-pressed="true" data-size="desktop">Desktop</button>
+              <button class="chip" aria-pressed="false" data-size="tablet">Tablet</button>
+              <button class="chip" aria-pressed="false" data-size="mobile">Mobile</button>
+              <span class="bench-width" aria-live="polite">1200 px</span>
+            </div>
+            <div class="stage" id="stage">
+              <div class="device" id="device">
+                <div class="device-bar"><i></i><i></i><i></i><span class="device-url">ateliernorte.com</span></div>
+                <div class="device-view" id="device-view" data-lenis-prevent tabindex="0" aria-label="Website preview, scrollable"></div>
+                <button class="device-handle" id="device-handle" aria-label="Resize preview. Use left and right arrow keys." data-cursor="Drag"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <dl class="web-facts">
+          <div><dt>Responsive on every screen</dt><dd>Layouts designed for phones first, then refined for tablets and large displays.</dd></div>
+          <div><dt>Search-ready from day one</dt><dd>Clean structure, fast pages and metadata that search engines understand.</dd></div>
+          <div><dt>Yours to edit</dt><dd>Update text, images and listings yourself, without calling a developer.</dd></div>
+          <div><dt>Measured, not guessed</dt><dd>Simple analytics that show where visitors come from and what they do.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================== BRAND VISIBILITY ============================== -->
+    <section class="section visibility" id="visibility">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">Put your brand where new people are looking.</h2>
+          <p class="lead">Visibility isn't luck. We give external brands a place on our platform, introduce them to our network and create the content that keeps them in view.</p>
+        </div>
+
+        <div class="vis-grid">
+          <svg class="orbit" viewBox="-20 -20 640 650" role="img" aria-label="Diagram: your brand at the centre, connected to our platform, social, partner network, collaborations, search and content.">
+            <circle class="ring" cx="300" cy="300" r="120"/>
+            <circle class="ring ring--dash" cx="300" cy="300" r="200"/>
+            <circle class="ring" cx="300" cy="300" r="275"/>
+            <g class="spokes">
+              <line class="spoke" data-k="platform" x1="300" y1="300" x2="360" y2="196"/>
+              <line class="spoke" data-k="social" x1="300" y1="300" x2="196" y2="360"/>
+              <line class="spoke" data-k="network" x1="300" y1="300" x2="112" y2="232"/>
+              <line class="spoke" data-k="collab" x1="300" y1="300" x2="473" y2="400"/>
+              <line class="spoke" data-k="search" x1="300" y1="300" x2="558" y2="206"/>
+              <line class="spoke" data-k="content" x1="300" y1="300" x2="162" y2="538"/>
+            </g>
+            <g class="spin"><circle class="signal" cx="420" cy="300" r="4"/></g>
+            <g class="spin spin--rev"><circle class="signal" cx="300" cy="100" r="3.5"/><circle class="signal" cx="300" cy="500" r="3.5"/></g>
+            <g class="spin spin--slow"><circle class="signal" cx="25" cy="300" r="3"/></g>
+            <g class="node" data-k="platform"><circle cx="360" cy="196" r="8"/><text x="376" y="190">Our platform</text></g>
+            <g class="node" data-k="social"><circle cx="196" cy="360" r="8"/><text x="180" y="386" text-anchor="end">Social</text></g>
+            <g class="node" data-k="network"><circle cx="112" cy="232" r="8"/><text x="112" y="212" text-anchor="middle">Partner network</text></g>
+            <g class="node" data-k="collab"><circle cx="473" cy="400" r="8"/><text x="489" y="405">Collaborations</text></g>
+            <g class="node" data-k="search"><circle cx="558" cy="206" r="8"/><text x="558" y="186" text-anchor="middle">Search</text></g>
+            <g class="node" data-k="content"><circle cx="162" cy="538" r="8"/><text x="146" y="562" text-anchor="end">Content</text></g>
+            <g class="core"><circle cx="300" cy="300" r="62"/><text x="300" y="306" text-anchor="middle">Your brand</text></g>
+          </svg>
+
+          <div>
+            <div class="ways">
+              <button class="way" data-k="platform social"><h3>Feature on our platform</h3><p>Your brand presented to the audience that already follows our work and our clients.</p></button>
+              <button class="way" data-k="network collab"><h3>Strategic collaborations</h3><p>Introductions and joint campaigns with businesses that share your customers.</p></button>
+              <button class="way" data-k="content social"><h3>Content that travels</h3><p>Photography, video and posts made for the channels your audience actually uses.</p></button>
+              <button class="way" data-k="search"><h3>Online positioning</h3><p>Search, maps and directory listings tuned so you appear for the right searches.</p></button>
+            </div>
+            <div class="vis-cta">
+              <a class="btn" href="#contact" data-type="Brand visibility">Promote your brand with us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== BUSINESS ============================== -->
+    <section class="section business" id="business">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">Look as established as you are.</h2>
+          <p class="lead">Customers judge a business by its website before they ever call. We help companies and entrepreneurs modernize how they show up online, and how they work behind it.</p>
+        </div>
+
+        <div class="biz-grid">
+          <div>
+            <div class="compare" id="compare" style="--pos: 50%" data-cursor="Drag">
+              <div class="compare-layer compare-before" aria-hidden="true">
+                <div class="old">
+                  <div class="old-banner">Welcome to Ferrer Carpentry!!!</div>
+                  <div class="old-links">Home Products Gallery Prices Contact Guestbook</div>
+                  <div class="old-cols">
+                    <div class="old-side"><b>NEWS</b><br>New photos added!<br><br><b>LINKS</b><br>Click here<br>Click here<br><br><span class="old-star">★ BEST PRICES ★</span></div>
+                    <div class="old-main">
+                      <h5>About Us</h5>
+                      <p>Ferrer Carpentry has been making furniture since 1987. We make kitchens, doors, windows, tables and much more. Please call us for a quote. Fax available.</p>
+                      <p><b>Opening hours:</b> Mon-Fri 9-14 / 16-20. Sat by appointment. Closed holidays.</p>
+                      <span class="old-counter">004213</span>
+                      <div class="old-construction"><span>PAGE UNDER CONSTRUCTION</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="compare-layer compare-after" id="compare-after" aria-hidden="true"></div>
+              <span class="compare-tag compare-tag--before">Before</span>
+              <span class="compare-tag compare-tag--after">After</span>
+              <span class="compare-line"></span>
+              <span class="compare-knob"><svg viewBox="0 0 26 26"><path d="M9 7l-6 6 6 6M17 7l6 6-6 6"/></svg></span>
+              <input type="range" min="0" max="100" value="50" aria-label="Compare the old and new website. Slide to reveal more of either version.">
+            </div>
+            <div class="audiences">
+              <div><h4>For companies</h4><p>Bring an established business up to the standard of its reputation, and connect the website to how your team really works.</p></div>
+              <div><h4>For entrepreneurs</h4><p>Start with a credible brand and a site that sells from day one, then grow it as the business grows.</p></div>
+            </div>
+          </div>
+
+          <div class="outcomes">
+            <div class="outcome"><h3>A professional website</h3><p>Clear, fast, and built to turn visits into enquiries.</p></div>
+            <div class="outcome"><h3>More credibility</h3><p>A consistent brand, real reviews and the details that build trust before the first call.</p></div>
+            <div class="outcome"><h3>Digital products, launched</h3><p>Online shops, booking systems, courses and memberships, set up and running.</p></div>
+            <div class="outcome"><h3>Better conversations with customers</h3><p>Newsletters, WhatsApp, forms and automatic replies that still feel personal.</p></div>
+            <div class="outcome"><h3>Less paperwork</h3><p>Quotes, invoices and appointments handled online instead of on paper.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== REAL ESTATE ============================== -->
+    <section class="section re" id="real-estate">
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">Property, presented properly.</h2>
+          <p class="lead">From a single listing to a full portfolio platform, we make every property easy to find and easy to want. Hover the map or the list to explore.</p>
+        </div>
+
+        <div class="re-who">
+          <div><h3>Agents and agencies</h3><p>Listing websites with search, maps and lead forms that send enquiries straight to the right agent.</p></div>
+          <div><h3>Property owners</h3><p>A dedicated page for your home or rental, with the photos, plans and details buyers ask for.</p></div>
+          <div><h3>Developers and investors</h3><p>Launch sites for new developments and clear presentations for investment projects.</p></div>
+        </div>
+
+        <div class="listing">
+          <div class="listing-top">
+            <strong><span class="mark"></span>Costa Habitat, available homes</strong>
+            <div role="group" aria-label="Filter properties" class="re-filter" style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="chip" aria-pressed="true" data-op="all">All</button>
+              <button class="chip" aria-pressed="false" data-op="sale">For sale</button>
+              <button class="chip" aria-pressed="false" data-op="rent">For rent</button>
+            </div>
+          </div>
+          <div class="listing-body">
+            <div class="map" data-cursor="Explore">
+              <svg viewBox="0 0 600 520" preserveAspectRatio="xMidYMid slice" aria-label="Map of available properties" role="group">
+                <rect class="land" width="600" height="520"/>
+                <rect class="park" x="410" y="300" width="130" height="90" rx="18"/>
+                <g transform="rotate(-9 300 260)">
+                  <path class="street" d="M-40 60H660M-40 110H660M-40 160H660M-40 210H660M-40 260H660M-40 310H660M-40 360H660M-40 410H660M-40 460H660"/>
+                  <path class="street" d="M40 -40V600M110 -40V600M180 -40V600M250 -40V600M320 -40V600M390 -40V600M460 -40V600M530 -40V600"/>
+                </g>
+                <path class="avenue" d="M-10 200C120 180 260 220 330 160S520 80 620 90"/>
+                <path class="avenue" d="M300 -10C290 120 320 230 300 300S320 420 380 530"/>
+                <path class="water" d="M0 340C70 330 140 350 200 395S300 470 340 520H0Z"/>
+                <text class="label" x="42" y="440">Mediterranean</text>
+                <text class="label" x="200" y="290">Old Harbour</text>
+                <text class="label" x="430" y="78">Pinar Alto</text>
+                <text class="label" x="424" y="290">Parque del Sol</text>
+                <text class="label" x="340" y="470">Cala Blanca</text>
+                <g id="pins"></g>
+              </svg>
+            </div>
+            <div class="props" id="props" data-lenis-prevent></div>
+          </div>
+        </div>
+
+        <div class="re-services">
+          <p class="h3">What we build for property</p>
+          <ul>
+            <li>Agency websites</li><li>Listing pages</li><li>Interactive maps</li><li>Floor plans</li>
+            <li>Virtual tour presentation</li><li>Development launch sites</li><li>Investor presentations</li>
+            <li>Social and ad campaigns</li><li>Lead management</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SELECTED WORK ============================== -->
+    <section class="section work-sec is-dark" id="work" data-dark>
+      <div class="wrap">
+        <div class="head">
+          <h2 class="h2">Selected work</h2>
+          <p class="lead">Recent projects across architecture, property, hospitality and retail. Hover a project to scroll through its site.</p>
+        </div>
+        <div class="work-list" id="work-list"></div>
+      </div>
+    </section>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section class="section about" id="studio">
+      <div class="wrap">
+        <div class="about-top">
+          <p class="about-statement" id="about-statement">GD is a multidisciplinary digital studio. We combine creativity, technology, branding and strategy to turn ideas into brands people notice, and businesses that grow online.</p>
+          <span class="mark about-mark" aria-hidden="true"></span>
+        </div>
+
+        <div class="pillars">
+          <div><h3>Creativity</h3><p>Ideas with a point of view, shaped for your audience rather than borrowed from a template.</p></div>
+          <div><h3>Technology</h3><p>Modern, fast code and tools you won't outgrow next year.</p></div>
+          <div><h3>Branding</h3><p>A recognizable identity, applied consistently everywhere you appear.</p></div>
+          <div><h3>Strategy</h3><p>Every decision tied to a goal you can measure.</p></div>
+        </div>
+
+        <div class="process">
+          <h3>How a project runs</h3>
+          <ol class="steps">
+            <li class="step"><h4>Listen</h4><p>We learn your business, your customers and what success looks like for you.</p></li>
+            <li class="step"><h4>Shape</h4><p>Strategy, structure and design direction, agreed together before anything is built.</p></li>
+            <li class="step"><h4>Build</h4><p>Design and development in short rounds, with you reviewing as we go.</p></li>
+            <li class="step"><h4>Grow</h4><p>Launch, measure and keep improving with ongoing support.</p></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================== -->
+    <section class="section contact is-dark" id="contact" data-dark>
+      <div class="wrap">
+        <h2 class="contact-title"><span>Have an idea?</span><span>Let's build it.</span></h2>
+
+        <div class="contact-grid">
+          <form class="form" id="form" novalidate>
+            <div class="form-row">
+              <div class="field">
+                <label for="f-name">Name</label>
+                <input id="f-name" name="name" autocomplete="name" placeholder="Your name" required>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required>
+                <span class="field-error" aria-live="polite"></span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-company">Company <span>(optional)</span></label>
+              <input id="f-company" name="company" autocomplete="organization" placeholder="Company or project name">
+            </div>
+            <fieldset>
+              <legend>Type of project</legend>
+              <div class="types">
+                <label class="chip"><input type="radio" name="type" value="Website" checked>Website</label>
+                <label class="chip"><input type="radio" name="type" value="Landing page">Landing page</label>
+                <label class="chip"><input type="radio" name="type" value="Branding">Branding</label>
+                <label class="chip"><input type="radio" name="type" value="Brand visibility">Brand visibility</label>
+                <label class="chip"><input type="radio" name="type" value="Business digitalization">Business digitalization</label>
+                <label class="chip"><input type="radio" name="type" value="Real estate">Real estate</label>
+                <label class="chip"><input type="radio" name="type" value="Something else">Something else</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="f-msg">Message</label>
+              <textarea id="f-msg" name="message" rows="4" placeholder="What are you building, and when would you like to launch?" required></textarea>
+              <span class="field-error" aria-live="polite"></span>
+            </div>
+            <div class="form-end">
+              <button class="btn" type="submit" style="--b-bg: var(--fg); --b-fg: var(--bg)"><span class="btn-dot"></span>Send project brief</button>
+              <p class="form-status" id="form-status" aria-live="polite">We reply within two working days.</p>
+            </div>
+          </form>
+
+          <aside class="direct" aria-label="Direct contact">
+            <div><h3>Email</h3><a class="direct-big" href="mailto:hello@gdcompany.com">hello@gdcompany.com</a></div>
+            <div><h3>Phone and WhatsApp</h3><a class="direct-big" href="https://wa.me/34600000000">+34 600 000 000</a></div>
+            <div>
+              <h3>Follow the studio</h3>
+              <div class="socials">
+                <a class="chip" href="#">Instagram</a>
+                <a class="chip" href="#">LinkedIn</a>
+                <a class="chip" href="#">Behance</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <footer class="footer">
+          <a class="brand" href="#top"><span class="mark"></span>GD Company</a>
+          <span>© 2026 GD Company. Digital studio.</span>
+          <div class="footer-links"><a href="#">Privacy</a><a href="#">Legal notice</a><a href="#top">Back to top</a></div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
